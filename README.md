@@ -37,35 +37,36 @@ This bot collects messages from all text channels in a Discord server over the p
 
 Ensure you have Python installed (version 3.8 or higher recommended). Install the required packages using pip:
 
-	```bash
-	pip install discord.py openai
+pip install discord.py openai
 
 ### 5. Run the Bot Locally or Online
 
-    Locally:
-    Run the bot using:
+Locally:
+Run the bot using:
 
-    python bot.py
+python bot.py
 
-    Online (e.g., Heroku, Replit, etc.):
-        Make sure you set the required environment variables (DISCORD_TOKEN and OPENAI_API_KEY).
-        Deploy the code according to your chosen platform's instructions.
+Online (e.g., Heroku, Replit, etc.):
+Make sure you set the required environment variables (DISCORD_TOKEN and OPENAI_API_KEY).
+Deploy the code according to your chosen platform's instructions.
 
 ### 6. Inviting the Bot to Your Server
 
-    Go back to the Discord Developer Portal.
-    Under "OAuth2" > "URL Generator":
-        Select the bot scope.
-        Choose the permissions your bot needs (at minimum, it requires permissions to read messages and send messages).
-    Copy the generated URL and open it in your browser to invite the bot to your server.
+Go back to the Discord Developer Portal.
+Under "OAuth2" > "URL Generator":
+    Select the bot scope.
+    Choose the permissions your bot needs (at minimum, it requires permissions to read messages and send messages).
+Copy the generated URL and open it in your browser to invite the bot to your server.
 
 ### Additional Notes
 
-    The bot uses OpenAI's Chat API with a model set as gpt-4o-mini. If you have access to a different model or need to change settings, update the model name and parameters in the generate_summary function.
-    Logs are output to the console to help monitor the bot’s activity and any potential errors.
+The bot uses OpenAI's Chat API with a model set as gpt-4o-mini. If you have access to a different model or need to change settings, update the model name and parameters in the generate_summary function.
+Logs are output to the console to help monitor the bot’s activity and any potential errors.
 
 Attribution
 
 This bot script is based on work by Simon Indelicate.
+
+Support me if you want [https://ko-fi.com/simonindelicate](https://ko-fi.com/simonindelicate)
 
 Feel free to customize and extend the bot functionality as needed!
