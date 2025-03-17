@@ -21,8 +21,8 @@ openai.api_key = OPENAI_API_KEY
 # Digest channel name: Change this if you want a different channel name for the digest
 DIGEST_CHANNEL_NAME = "digest"
 
-# Channel name to exclude links (e.g., music recommendations) - change as needed
-EXCLUDE_CHANNEL_NAME = "music-recommendations"
+# Channels to exclude (e.g., channels for music recommendations or any others) - Make sure to add the name of your digest channel
+EXCLUDE_CHANNELS = ["music-recommendations", "another-channel-to-exclude"]
 
 # ============================
 # END OF PERSONALIZATION
@@ -93,13 +93,13 @@ async def generate_summary(daily_text):
         logging.error(f"Error generating summary: {e}")
         return "Unable to generate summary for today."
 
-def extract_links(messages, exclude_channel_name=EXCLUDE_CHANNEL_NAME):
+def extract_links(messages, exclude_channel_names=EXCLUDE_CHANNELS):
     """
-    Extracts all links found in the messages, excluding those from the specified channel.
+    Extracts all links found in the messages, excluding those from the specified channels.
     """
     links = set()
     for msg in messages:
-        if msg.channel.name == exclude_channel_name:
+        if msg.channel.name in exclude_channel_names:
             continue
         found = url_pattern.findall(msg.content)
         links.update(found)
@@ -109,10 +109,15 @@ async def run_digest_for_guild(guild, from_time, to_time):
     """
     Collects messages within the given time range for a guild, generates a summary,
     compiles shared links, and posts both to the designated digest channel.
+    Excludes channels listed in EXCLUDE_CHANNELS.
     """
     all_messages = []
     # Iterate over all text channels in the guild
     for channel in guild.text_channels:
+        # Skip excluded channels
+        if channel.name in EXCLUDE_CHANNELS:
+            logging.info(f"Skipping excluded channel '{channel.name}' in guild '{guild.name}'.")
+            continue
         try:
             messages = [msg async for msg in channel.history(limit=None, after=from_time, before=to_time)]
             if messages:
@@ -137,7 +142,7 @@ async def run_digest_for_guild(guild, from_time, to_time):
     summary = await generate_summary(daily_text)
     logging.info(f"Generated daily summary for guild '{guild.name}' via GPT.")
 
-    # Extract links excluding those from the specified channel
+    # Extract links excluding those from the specified channels
     links = extract_links(all_messages)
     if links:
         links_text = "\n".join(f"- {link}" for link in sorted(links))
@@ -207,4 +212,3 @@ async def summarize(ctx):
 if __name__ == "__main__":
     # Attribution: Based on a script by Simon Indelicate.
     bot.run(DISCORD_TOKEN)
-
