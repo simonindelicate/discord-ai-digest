@@ -2,6 +2,10 @@
 
 This bot collects messages from all text channels in a Discord server over the past day, summarizes the discussion using OpenAI's API, and compiles a list of shared links. The summary and links are then posted to a designated digest channel.
 
+## Important Note:
+
+- As written, this bot is not secure. you will need to create a dotenv file for your api keys etc if you want to run it anywhere other than locally.
+
 ## Features
 
 - **Daily Digest:** Automatically posts a summary and shared links every 24 hours.
