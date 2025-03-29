@@ -41,7 +41,7 @@ This bot collects messages from all text channels in a Discord server over the p
 
 Ensure you have Python installed (version 3.8 or higher recommended). Install the required packages using pip:
 
-pip install discord.py openai
+pip install -r requirements.txt
 
 ### 5. Run the Bot Locally or Online
 
